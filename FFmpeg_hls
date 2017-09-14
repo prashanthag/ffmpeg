@@ -1,0 +1,35 @@
+https://stackoverflow.com/questions/1735933/streaming-via-rtsp-or-rtp-in-html5/4900156#4900156
+
+  ffmpeg -v info -rtsp_transport tcp -i rtsp://host:port/[sdp] -c:v copy -c:a copy -maxrate 400k -bufsize 1835k -pix_fmt yuv420p -flags -global_header -hls_time 10 -hls_list_size 6 -hls_wrap 10 -start_number 1 hls/test.m3u8
+
+	index.html
+				<!DOCTYPE html>
+			<html>
+			<head>
+				<title>HLS live streaming</title>
+			</head>
+			<body>
+			<video id=example-video width=600 height=300 class="video-js vjs-default-skin" controls>
+			  <source
+				 src="hls/test.m3u8"
+				 type="application/x-mpegURL">
+			</video>
+			<script src="node_modules/video.js/dist/video.js"></script>
+			<script src="node_modules/videojs-contrib-hls/dist/videojs-contrib-hls.min.js"></script>
+			<script>
+				var player = videojs('example-video');
+				player.play();
+			</script> 
+			</body>
+			</html>
+		
+		
+		
+		
+* Works for firefox with GOP =5 BUT STUTTERS IN other browser 
+			ffmpeg -v info -rtsp_transport tcp -i rtsp://localhost:8554/1280x720 -c:v copy -c:a aac    -hls_time 0.2 -hls_wrap 10 -start_number 1  test.m3u8
+		
+		1. gop =5 , hls_time 0.2 -hls_wrap 10 works only in firefox bu faster < 2
+		2. gop =10  -hls_time 0.2 -hls_wrap 4 every one minute one secodn structer < 2.5 
+		3  gop =15  -hls_time 0.1 -hls_wrap 4 works delay < 3
+		4. FBI ,enteprenerial 
