@@ -33,3 +33,6 @@ https://stackoverflow.com/questions/1735933/streaming-via-rtsp-or-rtp-in-html5/4
 		2. gop =10  -hls_time 0.2 -hls_wrap 4 every one minute one secodn structer < 2.5 
 		3  gop =15  -hls_time 0.1 -hls_wrap 4 works delay < 3
 		4. FBI ,enteprenerial 
+		
+	To covert m3u8 file(ts) to mp4 	
+* 		ffmpeg -i http://.../playlist.m3u8 -c copy -bsf:a aac_adtstoasc output.mp4
